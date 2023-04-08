@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.app.LoaderManager;
+import androidx.loader.content.CursorLoader;
 import androidx.loader.content.Loader;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -95,7 +96,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int id, @Nullable Bundle args) {
-        return null;
+        switch (id) {
+            case 0:
+                return new CursorLoader(this, RequestProvider.urlForItems(offset * page), null, null, null, null);
+            default:
+                throw new IllegalArgumentException("no id handler");
+        }
     }
 
     @Override
